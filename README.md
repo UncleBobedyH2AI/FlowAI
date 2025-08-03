@@ -16,6 +16,8 @@ By optimizing communication continuity, FlowAI ensures that each session builds 
 
 The FlowAI template consists of several sections that guide users in documenting and preparing for their sessions with AI. 
 
+Feed the template to AI, let it propagate the template, so you don't lose your discussion at session's end, and submit it next session!
+
 Each section is crafted to enhance clarity, focus, and continuity, ultimately leading to a more effective collaboration.
 
 
