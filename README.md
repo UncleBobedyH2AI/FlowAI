@@ -2,11 +2,17 @@
 Collaborating with AI can reach flow state, which is lost at session's end. This template reignites it. Deeper collaboration. No need to rebuild rapport. No more AI dementia and lack of persistent memory.
 
 📄 README for FlowAI
+
 FlowAI: Optimized AI Communication Continuity Template
-Welcome to the FlowAI repository! This template is designed to help maintain and bridge flow state between human and AI collaboration sessions. By optimizing communication continuity, FlowAI ensures that each session builds upon the last, fostering a more productive and engaging experience.
+
+Welcome to the FlowAI repository! 
+
+This template is designed to help maintain and bridge flow state between human and AI collaboration sessions. 
+By optimizing communication continuity, FlowAI ensures that each session builds upon the last, fostering a more productive and engaging experience.
 
 🌟 Template Overview
-The FlowAI template consists of several sections that guide users in documenting and preparing for their sessions with AI. Each section is crafted to enhance clarity, focus, and continuity, ultimately leading to a more effective collaboration.
+The FlowAI template consists of several sections that guide users in documenting and preparing for their sessions with AI. 
+Each section is crafted to enhance clarity, focus, and continuity, ultimately leading to a more effective collaboration.
 
 1. Session Overview
 Date of Last Session: [Insert date]
