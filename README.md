@@ -31,6 +31,8 @@ Decisions Made: [Summarize any conclusions or decisions]
 
 Important Quotes or Insights: [Include any memorable quotes or insights that stood out]
 
+Explain abbreviations: [Avoid losing critical meaning between sessions with explanations of meaning]
+
 Session Duration: [Note how long the last session lasted]
 
 
