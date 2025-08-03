@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude to WPS Office Converter</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .main-content {
+            padding: 30px;
+        }
+        
+        .converter-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .input-section, .output-section {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 400px;
+            padding: 20px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #4facfe;
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+        }
+        
+        .input-textarea {
+            background: #f8f9fa;
+        }
+        
+        .output-textarea {
+            background: #f0f8ff;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-1px);
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-1px);
+        }
+        
+        .options {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .options h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 1.1rem;
+        }
+        
+        .option-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #4facfe;
+        }
+        
+        .checkbox-group label {
+            font-size: 14px;
+            color: #555;
+            cursor: pointer;
+        }
+        
+        .status {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px 20px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 4px solid #28a745;
+            display: none;
+        }
+        
+        .bookmarklet-section {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .bookmarklet-section h3 {
+            color: #856404;
+            margin: 0 0 15px 0;
+        }
+        
+        .bookmarklet-code {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 12px;
+            word-break: break-all;
+            border: 1px solid #dee2e6;
+            margin: 10px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .converter-section {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            textarea {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Claude to WPS Converter</h1>
+            <p>Clean up Claude's formatted responses for perfect WPS Office compatibility</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="options">
+                <h3>Conversion Options</h3>
+                <div class="option-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="removeHtml" checked>
+                        <label for="removeHtml">Remove HTML tags</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="convertMarkdown" checked>
+                        <label for="convertMarkdown">Convert Markdown to plain text</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="preserveStructure" checked>
+                        <label for="preserveStructure">Preserve basic structure</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="cleanWhitespace" checked>
+                        <label for="cleanWhitespace">Clean extra whitespace</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="convertLists">
+                        <label for="convertLists">Convert to simple bullet points</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button class="btn btn-primary" onclick="convertText()">🔄 Convert Text</button>
+                <button class="btn btn-secondary" onclick="clearAll()">🗑️ Clear All</button>
+                <button class="btn btn-success" onclick="copyOutput()">📋 Copy Result</button>
+            </div>
+            
+            <div class="status" id="status"></div>
+            
+            <div class="converter-section">
+                <div class="input-section">
+                    <div class="section-title">
+                        <div class="section-icon">📥</div>
+                        Paste Claude's Response Here
+                    </div>
+                    <textarea 
+                        id="inputText" 
+                        class="input-textarea"
+                        placeholder="Paste your Claude response here. This can include HTML, markdown, or any formatted text..."
+                    ></textarea>
+                </div>
+                
+                <div class="output-section">
+                    <div class="section-title">
+                        <div class="section-icon">📤</div>
+                        WPS Office Ready Output
+                    </div>
+                    <textarea 
+                        id="outputText" 
+                        class="output-textarea"
+                        readonly
+                        placeholder="Cleaned text will appear here, ready to copy into WPS Office..."
+                    ></textarea>
+                </div>
+            </div>
+            
+            <div class="bookmarklet-section">
+                <h3>📌 Bookmarklet Version</h3>
+                <p>Drag this link to your bookmarks bar for instant conversion on any page:</p>
+                <div class="bookmarklet-code">
+                    <a href="javascript:(function(){var input=prompt('Paste Claude response:','');if(input){var cleaned=input.replace(/<[^>]*>/g,'').replace(/\*\*(.*?)\*\*/g,'$1').replace(/\*(.*?)\*/g,'$1').replace(/`(.*?)`/g,'$1').replace(/#{1,6}\s*(.*)/g,'$1').replace(/\s+/g,' ').trim();prompt('Copy this for WPS Office:',cleaned);}})();" 
+                       style="color: #007bff; text-decoration: none;">Claude to WPS Converter</a>
+                </div>
+                <p><small>Right-click the link above and select "Add to Bookmarks" or drag it to your bookmarks toolbar.</small></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showStatus(message, type = 'success') {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.style.display = 'block';
+            status.className = 'status';
+            
+            if (type === 'error') {
+                status.style.background = '#f8d7da';
+                status.style.color = '#721c24';
+                status.style.borderLeftColor = '#dc3545';
+            } else {
+                status.style.background = '#d4edda';
+                status.style.color = '#155724';
+                status.style.borderLeftColor = '#28a745';
+            }
+            
+            setTimeout(() => {
+                status.style.display = 'none';
+            }, 3000);
+        }
+
+        function removeHtmlTags(text) {
+            // Remove HTML tags
+            return text.replace(/<[^>]*>/g, '');
+        }
+
+        function convertMarkdownToPlainText(text) {
+            // Convert markdown to plain text
+            return text
+                // Headers
+                .replace(/^#{1,6}\s*(.*$)/gm, '$1')
+                // Bold text
+                .replace(/\*\*(.*?)\*\*/g, '$1')
+                .replace(/__(.*?)__/g, '$1')
+                // Italic text
+                .replace(/\*(.*?)\*/g, '$1')
+                .replace(/_(.*?)_/g, '$1')
+                // Code blocks
+                .replace(/```[\s\S]*?```/g, '[CODE BLOCK]')
+                // Inline code
+                .replace(/`(.*?)`/g, '$1')
+                // Links
+                .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
+                // Images
+                .replace(/!\[([^\]]*)\]\([^\)]+\)/g, '[IMAGE: $1]')
+                // Strikethrough
+                .replace(/~~(.*?)~~/g, '$1')
+                // Horizontal rules
+                .replace(/^[-*_]{3,}$/gm, '---');
+        }
+
+        function convertLists(text) {
+            return text
+                // Unordered lists
+                .replace(/^[\s]*[-*+]\s+(.*)$/gm, '• $1')
+                // Ordered lists
+                .replace(/^[\s]*\d+\.\s+(.*)$/gm, '• $1')
+                // Nested lists (simple conversion)
+                .replace(/^[\s]{2,}[-*+]\s+(.*)$/gm, '  ○ $1')
+                .replace(/^[\s]{2,}\d+\.\s+(.*)$/gm, '  ○ $1');
+        }
+
+        function preserveBasicStructure(text) {
+            // Add extra line breaks for better readability
+            return text
+                // Ensure paragraph breaks
+                .replace(/\n\s*\n/g, '\n\n')
+                // Clean up multiple spaces
+                .replace(/[ \t]+/g, ' ')
+                // Clean up multiple line breaks (max 2)
+                .replace(/\n{3,}/g, '\n\n');
+        }
+
+        function cleanWhitespace(text) {
+            return text
+                // Remove leading/trailing whitespace from lines
+                .replace(/^[ \t]+|[ \t]+$/gm, '')
+                // Remove multiple spaces
+                .replace(/[ \t]{2,}/g, ' ')
+                // Remove empty lines at start and end
+                .trim();
+        }
+
+        function convertText() {
+            const inputText = document.getElementById('inputText').value;
+            
+            if (!inputText.trim()) {
+                showStatus('Please paste some text to convert!', 'error');
+                return;
+            }
+
+            let convertedText = inputText;
+
+            // Apply conversions based on selected options
+            if (document.getElementById('removeHtml').checked) {
+                convertedText = removeHtmlTags(convertedText);
+            }
+
+            if (document.getElementById('convertMarkdown').checked) {
+                convertedText = convertMarkdownToPlainText(convertedText);
+            }
+
+            if (document.getElementById('convertLists').checked) {
+                convertedText = convertLists(convertedText);
+            }
+
+            if (document.getElementById('preserveStructure').checked) {
+                convertedText = preserveBasicStructure(convertedText);
+            }
+
+            if (document.getElementById('cleanWhitespace').checked) {
+                convertedText = cleanWhitespace(convertedText);
+            }
+
+            // Additional WPS Office specific cleaning
+            convertedText = convertedText
+                // Remove citation tags
+                .replace(/]*>(.*?)<\/antml:cite>/g, '$1')
+                // Remove function call blocks
+                .replace(/<function_calls>[\s\S]*?<\/antml:function_calls>/g, '')
+                // Clean up any remaining XML-like tags
+                .replace(/<\/?[^>]+>/g, '')
+                // Normalize quotes
+                .replace(/[""]/g, '"')
+                .replace(/['']/g, "'")
+                // Clean up bullet points
+                .replace(/^[•·▪▫◦‣⁃]\s*/gm, '• ')
+                // Ensure consistent line endings
+                .replace(/\r\n/g, '\n')
+                // Final cleanup
+                .trim();
+
+            document.getElementById('outputText').value = convertedText;
+            
+            const wordCount = convertedText.split(/\s+/).length;
+            showStatus(`✅ Conversion complete! ${wordCount} words ready for WPS Office.`);
+        }
+
+        function clearAll() {
+            document.getElementById('inputText').value = '';
+            document.getElementById('outputText').value = '';
+            showStatus('🗑️ All text cleared.');
+        }
+
+        function copyOutput() {
+            const outputText = document.getElementById('outputText');
+            
+            if (!outputText.value.trim()) {
+                showStatus('Nothing to copy! Please convert some text first.', 'error');
+                return;
+            }
+
+            outputText.select();
+            outputText.setSelectionRange(0, 99999); // For mobile devices
+
+            try {
+                document.execCommand('copy');
+                showStatus('📋 Text copied to clipboard! Ready to paste into WPS Office.');
+            } catch (err) {
+                // Fallback for modern browsers
+                navigator.clipboard.writeText(outputText.value).then(() => {
+                    showStatus('📋 Text copied to clipboard! Ready to paste into WPS Office.');
+                }).catch(() => {
+                    showStatus('❌ Copy failed. Please select and copy manually.', 'error');
+                });
+            }
+        }
+
+        // Auto-convert when text is pasted
+        document.getElementById('inputText').addEventListener('paste', function() {
+            setTimeout(() => {
+                convertText();
+            }, 100);
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case 'Enter':
+                        e.preventDefault();
+                        convertText();
+                        break;
+                    case 'k':
+                        e.preventDefault();
+                        clearAll();
+                        break;
+                }
+            }
+        });
+
+        // Show helpful tips
+        window.addEventListener('load', function() {
+            showStatus('💡 Tip: Paste Claude\'s response and click Convert, or just paste and it will auto-convert!');
+        });
+    </script>
+</body>
+</html>
