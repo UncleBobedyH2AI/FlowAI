@@ -117,4 +117,5 @@ We encourage users to contribute to the FlowAI template by providing feedback, s
 
 Thank you for using FlowAI! We hope this template helps you achieve a seamless flow state in your collaborative sessions.
 
-Licensed under the MIT License. 
+## License
+This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0). It is free for non-commercial use (e.g., personal, educational, or non-profit purposes) with attribution. For commercial use, please contact [UncleBobedy@protonmail.com] for a commercial license.
