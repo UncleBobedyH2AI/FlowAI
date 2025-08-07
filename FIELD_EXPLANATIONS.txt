@@ -1,0 +1,59 @@
+AI Communication Continuity Template – Field Explanations
+
+sess
+- date: The date of the session (YYYY-MM-DD).
+- topics: Main subjects discussed in the session.
+- abbr: Abbreviations used (e.g., LLM = Large Language Model).
+- dec: Decisions made during the session.
+- quotes: Notable quotes from the session.
+- dur: Duration of the session (e.g., 1h30m).
+- compressed: Compressed representation of session data (model and vector).
+
+goals
+- obj: Objectives for the session.
+- q: Key questions addressed.
+- out: Expected outcomes.
+- pri_score: Priority score (value and method used for scoring).
+
+bg
+- ctx: Context or background for the session.
+- ins: Insights gained.
+- chg: Changes made.
+- res: Resource links (URLs).
+- compressed: Compressed representation of background data.
+
+prefs
+- sty: Preferred style (e.g., T = Technical).
+- top: Preferred topics.
+- ex: Examples to include.
+- fb: Feedback.
+
+follow
+- q: Follow-up questions.
+- act: Actions to take.
+- act_fb: Feedback on actions.
+- next: Next steps.
+- feedback_loop: Suggestions and last update date.
+
+emo
+- feel: Emotional state or sentiment.
+- ltg: Licensing targets or goals.
+- compressed: Compressed representation of emotional context.
+
+notes
+- other: Additional notes.
+- refl: Reflections.
+
+version
+- num: Version number of the template/data.
+- diff: Differences or changes from previous versions.
+
+platform
+- model: Platform or AI model used.
+- token_limit: Maximum token limit for the platform.
+- api: API endpoint URL.
+
+Abbreviations:
+- LLM: Large Language Model
+- IP: Intellectual Property
+- BERT: Bidirectional Encoder Representations from Transformers (AI model)
